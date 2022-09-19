@@ -1,4 +1,4 @@
-; Function to print a 16 bit hex value.
+; Function to print a 16 bit hex value. Prints the value stored in dx.
 ; By: Gabriel Houle
 ; 9/13/2022
 
@@ -35,5 +35,10 @@ print_hex:
         jmp convert_loop
 
     end_print_hex:
+        mov bx, HEX_OUT
+        call print_string
         popa
         ret
+
+HEX_OUT: 
+    db '0x0000', 0
