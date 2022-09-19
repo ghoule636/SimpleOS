@@ -20,3 +20,15 @@ print_string:
     the_end:
         popa
         ret
+
+; Simple function just to print a new line
+print_nl:
+    pusha
+    mov ah, 0x0e
+    mov al, 0x0a
+    int 0x10
+    mov al, 0x0d
+    int 0x10
+
+    popa
+    ret
