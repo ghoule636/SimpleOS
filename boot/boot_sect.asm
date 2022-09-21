@@ -17,12 +17,12 @@ KERNEL_OFFSET equ 0x1000        ; Memory offset for loading the kernel
 
     jmp $
 
-%include "print_string16.asm"
-%include "print_hex.asm"
-%include "disk_load.asm"
-%include "gdt.asm"
-%include "print_string32.asm"
-%include "switch_to_pm.asm"
+%include "boot/print_string16.asm"
+%include "boot/print_hex.asm"
+%include "boot/disk_load.asm"
+%include "boot/gdt.asm"
+%include "boot/print_string32.asm"
+%include "boot/switch_to_pm.asm"
 
 [bits 16]
 
