@@ -1,3 +1,5 @@
+#include "../drivers/ports.h"
+
 void main() {
     // Create a pointer to the first text cell of video memory
     char* video_memory = (char*) 0xb8000;

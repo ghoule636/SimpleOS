@@ -18,6 +18,7 @@ all: os-image.bin
 run: all
 	qemu-system-i386 -fda os-image.bin
 
+# debug configuration using GDB
 debug: os-image.bin kernel.elf
 	qemu-system-i386 -fda os-image.bin -s -S &
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
