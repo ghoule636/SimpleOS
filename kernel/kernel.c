@@ -1,5 +1,8 @@
 #include "../drivers/ports.h"
 
+// TODO clean this up and move the input/output to a different driver file.
+
+// function to move the cursor along with the output text.
 void update_cursor(int offset) {
     offset /= 2;
     port_byte_out(0x3d4, 15);
@@ -24,17 +27,7 @@ void main() {
      * e.g. 'white on black background', 'red text on white bg', etc */
     int offset_from_vga = position * 2;
 
-    /* Now you can examine both variables using gdb, since we still
-     * don't know how to print strings on screen. Run 'make debug' and
-     * on the gdb console:
-     * breakpoint kernel.c:21
-     * continue
-     * print position
-     * print offset_from_vga
-     */
-
-    /* Let's write on the current cursor position, we already know how
-     * to do that */
+    // write the output string to the current position and move the cursor.
     char output[12] = "Hello World!";
     char *vga = 0xb8000;
     for (int i = 0; i < 12; i+=1) {
