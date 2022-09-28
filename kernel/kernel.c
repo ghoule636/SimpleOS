@@ -1,13 +1,18 @@
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
 
-// TODO clean this up and move the input/output to a different driver file.
-
 void main() {
-
-
     clear_screen();
-    char output[12] = "Hello World!";
-    print(output);
+    // print("Hello World!\n");
 
+    for (int i = 0; i < MAX_COLUMNS * MAX_ROWS - 1; i++){
+        print("1");
+    }
+    
+    for (int i = 0; i < MAX_COLUMNS; i++) {
+        print("2");
+    }
+    for (int i = 0; i < MAX_COLUMNS; i++) {
+        print("3");
+    }
 }

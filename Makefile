@@ -21,7 +21,7 @@ run: all
 # debug configuration using GDB
 debug: os-image.bin kernel.elf
 	qemu-system-i386 -fda os-image.bin -s -S &
-	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf" --silent
 
 # the disk image the computer loads which is the bootsector and kernel combined
 os-image.bin: boot/boot_sect.bin kernel.bin
