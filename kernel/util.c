@@ -13,12 +13,21 @@ void mem_cpy(char *to_address, char *from_address, int size) {
     }
 }
 
+/**
+ * @brief Converts a given number to its ascii representation and stores in 
+ * it the passed char array.
+ * 
+ * @param n The number being converted
+ * @param str The output char array
+ */
 void int_to_ascii(int n, char str[]) {
     int i, sign;
-    if ((sign = n) < 0) n = -n;
+    sign = n;
+    if (sign < 0) n = -n;
     i = 0;
     do {
-        str[i++] = n % 10 + '0';
+        str[i] = n % 10 + '0';
+        i++;
     } while ((n /= 10) > 0);
 
     if (sign < 0) str[i++] = '-';
