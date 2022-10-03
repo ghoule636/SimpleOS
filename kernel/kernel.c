@@ -1,29 +1,28 @@
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
+#include "util.h"
 
 void main() {
     clear_screen();
-    // print("Hello World!\n");
-
-    // for (int i = 0; i < MAX_COLUMNS * MAX_ROWS - 1; i++){
-    //     print("1");
-    // }
-    
-    // for (int i = 0; i < MAX_COLUMNS; i++) {
-    //     print("2");
-    // }
-    // for (int i = 0; i < MAX_COLUMNS; i++) {
-    //     print("3");
-    // }
 
     /* Fill up the screen */
-    int i = 0;
-    for (i = 0; i < 24; i++) {
+    for (int i = 0; i < 24; i++) {
         char str[255];
         int_to_ascii(i, str);
         print_at(str, 0, i);
     }
 
-    print_at("This text forces the kernel to scroll. Row 0 will disappear. ", 60, 24);
+    char* test1 = "15\0";
+    char* test2 = "30\0";
+
+    int test1Int = ascii_to_int(test1);
+    int test2Int = ascii_to_int(test2);
+    print("\n");
+    char str[255];
+    int_to_ascii(test1Int+test2Int, str);
+    print(str);
+    print("\n");
+
+    print("This text forces the kernel to scroll. Row 0 will disappear. ");
     print("And with this text, the kernel will scroll again, and row 1 will disappear too!");
 }

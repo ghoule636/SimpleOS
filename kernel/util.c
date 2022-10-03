@@ -33,3 +33,27 @@ void int_to_ascii(int n, char str[]) {
     if (sign < 0) str[i++] = '-';
     str[i] = '\0';
 }
+
+int ascii_to_int(char str[]) {
+    int result = 0;
+    int negative = 1;
+    int i = 0;
+    if (str[0] == '-') {
+        negative = -1;
+        i = 1;
+    }
+    while (str[i] != 0) {
+        int temp = str[i] - '0';
+        if (i) {
+            if (negative == -1 && i > 1) {
+                temp *= 10 * (i - 1);
+            } else {
+                temp *= 10 * i;
+            }
+        }
+        result += temp;
+        i++;
+    }
+    result *= negative;
+    return result;
+}
