@@ -1,6 +1,6 @@
 # Automatically generate list of sources with wildcards
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c) # TODO add c driver files to sources!
-HEADERS = $(wildcard kernel/*.h drivers/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h)
 
 # Convert the *.c filenames to *.o
 OBJ = ${C_SOURCES:.c=.o}
@@ -48,4 +48,4 @@ kernel.elf: kernel/kernel_entry.o ${OBJ}
 
 clean: 
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o cpu/*.o

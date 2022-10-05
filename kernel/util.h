@@ -1,5 +1,8 @@
 #pragma once
 
-void mem_cpy(char* from_address, char* to_address, int size);
-void int_to_ascii(int n, char str[]);
-int ascii_to_int(char str[]);
+#include "../cpu/types.h"
+
+void mem_cpy(u8int* from_address, u8int* to_address, u32int size);
+void mem_set(u8int* dest, u8int val, u32int size);
+void int_to_ascii(u32int n, u8int str[]);
+int ascii_to_int(u8int str[]);
