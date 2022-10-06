@@ -8,5 +8,4 @@ void main() {
     clear_screen();
     asm volatile ("int $0x3");
     asm volatile ("int $0x4");
-
 }

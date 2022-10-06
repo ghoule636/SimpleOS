@@ -31,8 +31,6 @@ struct idt_ptr_struct {
 typedef struct idt_ptr_struct idt_ptr_t;
 
 #define IDT_ENTRIES_SIZE 256
-idt_entry_t idt_entries[IDT_ENTRIES_SIZE];
-idt_ptr_t idt_ptr;
 
 extern void idt_flush(u32int);
 

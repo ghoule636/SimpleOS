@@ -1,6 +1,9 @@
 #include "descriptor_tables.h"
 #include "../kernel/util.h"
 
+idt_entry_t idt_entries[IDT_ENTRIES_SIZE];
+idt_ptr_t idt_ptr;
+
 void set_idt_gate(u32int n, u32int handler) {
     idt_entries[n].base_lo = low_16(handler);
     idt_entries[n].base_hi = high_16(handler);
