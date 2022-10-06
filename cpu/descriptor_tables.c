@@ -1,5 +1,6 @@
 #include "descriptor_tables.h"
 #include "../kernel/util.h"
+#include "../drivers/ports.h"
 
 idt_entry_t idt_entries[IDT_ENTRIES_SIZE];
 idt_ptr_t idt_ptr;
@@ -50,6 +51,36 @@ void init_idt() {
     set_idt_gate(29, (u32int)isr29);
     set_idt_gate(30, (u32int)isr30);
     set_idt_gate(31, (u32int)isr31);
+
+    // Remap the PIC
+    port_byte_out(0x20, 0x11);
+    port_byte_out(0xA0, 0x11);
+    port_byte_out(0x21, 0x20);
+    port_byte_out(0xA1, 0x28);
+    port_byte_out(0x21, 0x04);
+    port_byte_out(0xA1, 0x02);
+    port_byte_out(0x21, 0x01);
+    port_byte_out(0xA1, 0x01);
+    port_byte_out(0x21, 0x0);
+    port_byte_out(0xA1, 0x0); 
+
+    // Install the IRQs
+    set_idt_gate(32, (u32int)irq0);
+    set_idt_gate(33, (u32int)irq1);
+    set_idt_gate(34, (u32int)irq2);
+    set_idt_gate(35, (u32int)irq3);
+    set_idt_gate(36, (u32int)irq4);
+    set_idt_gate(37, (u32int)irq5);
+    set_idt_gate(38, (u32int)irq6);
+    set_idt_gate(39, (u32int)irq7);
+    set_idt_gate(40, (u32int)irq8);
+    set_idt_gate(41, (u32int)irq9);
+    set_idt_gate(42, (u32int)irq10);
+    set_idt_gate(43, (u32int)irq11);
+    set_idt_gate(44, (u32int)irq12);
+    set_idt_gate(45, (u32int)irq13);
+    set_idt_gate(46, (u32int)irq14);
+    set_idt_gate(47, (u32int)irq15);
 
     idt_flush((u32int)&idt_ptr);
 }
