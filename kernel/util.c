@@ -47,6 +47,7 @@ void int_to_ascii(u32int n, u8int str[]) {
 
     if (sign < 0) str[i++] = '-';
     str[i] = '\0';
+    reverseStr(str);
 }
 
 /**
@@ -77,4 +78,28 @@ int ascii_to_int(u8int str[]) {
     }
     result *= negative;
     return result;
+}
+
+/**
+ * @brief Reverses the given string.
+ */
+void reverseStr(char s[]) {
+    int temp, i, j;
+    for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+        temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+    }
+}
+
+/**
+ * @brief Returns length of a string. 
+ * 
+ * @param s - String that must terminate in a '\0' char.
+ * @return int Length of the string.
+ */
+int strlen(char s[]) {
+    int i = 0;
+    while (s[i] != 0) ++i;
+    return i;
 }
