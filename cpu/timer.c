@@ -8,12 +8,12 @@
 u32int tick = 0;
 
 static void timer_callback(registers_t regs) {
-    tick++;
-    print("Tick: ");
-    char tick_ascii[256];
-    int_to_ascii(tick, tick_ascii);
-    print(tick_ascii);
-    print("\n");
+    // tick++;
+    // print("Tick: ");
+    // char tick_ascii[256];
+    // int_to_ascii(tick, tick_ascii);
+    // print(tick_ascii);
+    // print("\n");
 }
 
 /**
