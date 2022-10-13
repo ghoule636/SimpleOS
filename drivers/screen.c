@@ -1,6 +1,7 @@
 #include "screen.h"
 #include "ports.h"
-#include "../kernel/util.h"
+#include "../libc/mem.h"
+#include "../cpu/types.h"
 
 // private functions
 int scroll_screen();
@@ -64,8 +65,8 @@ void print(char *message) {
  */
 int scroll_screen() {
     // shift data up by one row
-    mem_cpy((char*)VIDEO_ADDRESS,
-     (unsigned char*)(VIDEO_ADDRESS + (2 * MAX_COLUMNS)),
+    mem_cpy((u8int*)VIDEO_ADDRESS,
+     (u8int*)(VIDEO_ADDRESS + (2 * MAX_COLUMNS)),
       MAX_COLUMNS * MAX_ROWS * 2);
     // blank out the bottom row
     for (int i = 0; i < 2 * MAX_COLUMNS; i+=2) {

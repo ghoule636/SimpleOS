@@ -1,6 +1,6 @@
 # Automatically generate list of sources with wildcards
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
 
 # Convert the *.c filenames to *.o
 OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
@@ -9,7 +9,7 @@ OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 CC = ~/opt/cross/bin/i386-elf-gcc
 GDB = ~/opt/cross/bin/i386-elfgdb
 
-CFLAGS = -g
+CFLAGS = -g -Wextra -Wall -ffreestanding
 
 # default build everything
 all: os-image.bin
@@ -36,7 +36,7 @@ kernel.elf: kernel/kernel_entry.o ${OBJ}
 
 # Generic rules for compiling C files
 %.o: %.c ${HEADERS}
-	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
+	${CC} ${CFLAGS} -c $< -o $@
 
 # compile the kernel_entry.asm to .o
 %.o: %.asm
@@ -48,4 +48,4 @@ kernel.elf: kernel/kernel_entry.o ${OBJ}
 
 clean: 
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o cpu/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o cpu/*.o libc/*.o

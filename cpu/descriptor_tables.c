@@ -1,5 +1,4 @@
 #include "descriptor_tables.h"
-#include "../kernel/util.h"
 #include "../drivers/ports.h"
 
 idt_entry_t idt_entries[IDT_ENTRIES_SIZE];
@@ -84,3 +83,4 @@ void init_idt() {
 
     idt_flush((u32int)&idt_ptr);
 }
+

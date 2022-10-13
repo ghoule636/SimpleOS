@@ -3,11 +3,12 @@
 #include "descriptor_tables.h"
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
-#include "../kernel/util.h"
+#include "../libc/function.h"
 
 u32int tick = 0;
 
 static void timer_callback(registers_t regs) {
+    UNUSED(regs);
     // tick++;
     // print("Tick: ");
     // char tick_ascii[256];

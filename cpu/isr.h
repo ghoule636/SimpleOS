@@ -10,9 +10,12 @@ typedef struct registers {
     u32int eip, cs, eflags, useresp, ss;// Pushed by processor automatically
 } registers_t;
 
-void isr_handler(registers_t r);
-
-void isr_handler(registers_t r);
-
 typedef void (*isr_t)(registers_t);
+
+void isr_handler(registers_t r);
+
+void isr_handler(registers_t r);
+
 void register_interrupt_handler(u8int n, isr_t handler);
+
+void irq_install();

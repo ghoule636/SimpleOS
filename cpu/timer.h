@@ -1,5 +1,5 @@
 #pragma once
 
-#include "../kernel/util.h"
+#include "types.h"
 
 void init_timer(u32int freq);
