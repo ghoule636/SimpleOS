@@ -76,3 +76,37 @@ int strlen(char *s) {
     while (s[i] != 0) ++i;
     return i;
 }
+
+/**
+ * @brief Appends a char to the end of a string. String must have space for the
+ * new char.
+ * 
+ * @param buf String to append to.
+ * @param c The char being appended.
+ */
+void append(char* buf, char c) {
+    int len = strlen(buf);
+    buf[len] = c;
+    buf[len + 1] = '\0';
+}
+
+/**
+ * @brief Removes last char from a given string.
+ */
+void backspace(char* str) {
+    int len = strlen(str);
+    str[len - 1] = '\0';
+}
+
+/**
+ * @brief Returns <0 if s1 < s2, 0 if s1 == s2, >0 if s1 > s2
+ */
+int strcmp(char* str1, char* str2) {
+    int i;
+    for (i = 0; str1[i] == str2[i]; i++) {
+        if (str1[i] == '\0') {
+            return 0;
+        }
+    }
+    return str1[i] - str2[i];
+}

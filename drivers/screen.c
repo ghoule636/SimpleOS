@@ -56,6 +56,15 @@ void print(char *message) {
     print_at(message, -1, -1);
 }
 
+void print_backspace() {
+    int offset = get_cursor();
+    offset-=2;
+    unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
+    vidmem[offset] = ' ';
+    vidmem[offset + 1] = WHITE_ON_BLACK;
+    set_cursor(offset);
+}
+
 /**
  * @brief Function will scroll the screen by one row.
  * This happens by copying rows 2 through MAX_ROWS up by one row.
@@ -152,6 +161,24 @@ void set_cursor(int offset) {
     port_byte_out(0x3d4, 14);
     offset = offset >> 8;
     port_byte_out(0x3d5, offset);
+}
+
+/**
+ * @brief Clears the current row where the user is inputting.
+ * 
+ */
+void clear_current_row() {
+    // blank out the current row
+    int offset = get_cursor();
+    int currentRow = get_offset_row(offset);
+    for (int i = 0; i < 2 * MAX_COLUMNS; i+=2) {
+        char *vidmem = (char*)VIDEO_ADDRESS;
+        vidmem[(2 * MAX_COLUMNS * currentRow) + i] = ' ';
+        vidmem[(2 * MAX_COLUMNS * currentRow) + i + 1] = WHITE_ON_BLACK;
+    }
+    offset = 2 * MAX_COLUMNS * currentRow;
+    // shift cursor to the start of the last row
+    set_cursor(offset);
 }
 
 void clear_screen() {
