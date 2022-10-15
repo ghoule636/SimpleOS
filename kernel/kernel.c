@@ -2,7 +2,8 @@
 #include "../cpu/descriptor_tables.h"
 #include "../cpu/isr.h"
 
-void main() {
+void kernel_main() {
     init_idt();
     irq_install();
+    clear_screen();
 }
