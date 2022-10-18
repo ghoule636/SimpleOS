@@ -1,20 +1,13 @@
 #include "timer.h"
 #include "isr.h"
-#include "descriptor_tables.h"
-#include "../drivers/ports.h"
-#include "../drivers/screen.h"
+#include "ports.h"
 #include "../libc/function.h"
 
-u32int tick = 0;
+uint32_t tick = 0;
 
-static void timer_callback(registers_t regs) {
+static void timer_callback(registers_t *regs) {
+    tick++;
     UNUSED(regs);
-    // tick++;
-    // print("Tick: ");
-    // char tick_ascii[256];
-    // int_to_ascii(tick, tick_ascii);
-    // print(tick_ascii);
-    // print("\n");
 }
 
 /**
@@ -29,16 +22,16 @@ static void timer_callback(registers_t regs) {
  * 
  * @param frequency 
  */
-void init_timer(u32int frequency) {
+void init_timer(uint32_t frequency) {
     // Register timer callback as the IRQ0!
-    register_interrupt_handler(IRQ0, &timer_callback);
+    register_interrupt_handler(IRQ0, timer_callback);
 
     // This gets us our required frequency.
-    u32int divisor = 1193180 / frequency;
+    uint32_t divisor = 1193180 / frequency;
 
     // Divisor is sent byte-wise so split into upper/lower bytes.
-    u8int low = (u8int)(divisor & 0xFF);
-    u8int high = (u8int)((divisor >> 8) & 0xFF);
+    uint8_t low = (uint8_t)(divisor & 0xFF);
+    uint8_t high = (uint8_t)((divisor >> 8) & 0xFF);
 
     // Command byte for the PIT. '0x36' sets the PIT into repeating mode which
     // will refresh once the divisor counter reaches zero. '0x36' also tells the

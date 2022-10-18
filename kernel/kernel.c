@@ -1,9 +1,11 @@
 #include "../drivers/screen.h"
-#include "../cpu/descriptor_tables.h"
 #include "../cpu/isr.h"
 
 void kernel_main() {
-    init_idt();
+    isr_install();
     irq_install();
+
     clear_screen();
+    asm ("int $0x3");
+    asm ("int $0x4");
 }

@@ -1,10 +1,10 @@
 #include "keyboard.h"
-#include "ports.h"
-#include "../cpu/descriptor_tables.h"
+#include "../cpu/ports.h"
 #include "../cpu/isr.h"
 #include "screen.h"
 #include "../libc/function.h"
 #include "../libc/string.h"
+#include <stdint.h>
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
@@ -25,9 +25,9 @@ const char sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
         'H', 'J', 'K', 'L', ';', '\'', '`', '?', '\\', 'Z', 'X', 'C', 'V', 
         'B', 'N', 'M', ',', '.', '/', '?', '?', '?', ' '};
 
-static void keyboard_callback(registers_t regs) {
+static void keyboard_callback(registers_t *regs) {
     /* The PIC leaves us the scancode in port 0x60 */
-    u8int scancode = port_byte_in(0x60);
+    uint8_t scancode = port_byte_in(0x60);
 
     if (scancode > SCANCODE_MAX) return;
     if (scancode == BACKSPACE) {

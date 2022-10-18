@@ -1,5 +1,5 @@
 #include "string.h"
-#include "../cpu/types.h"
+#include <stdint.h>
 
 /**
  * @brief Converts a given number to its ascii representation and stores in 
@@ -8,7 +8,7 @@
  * @param n The number being converted
  * @param str The output char array
  */
-void int_to_ascii(u32int n, char *str) {
+void int_to_ascii(uint32_t n, char *str) {
     int i, sign;
     sign = n;
     if (sign < 0) n = -n;

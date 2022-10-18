@@ -31,7 +31,7 @@ load_kernel:
     call print_string16
 
     mov bx, KERNEL_OFFSET       ; Set-up for disk load routine
-    mov dh, 15                  ; Load the first 15 sectors
+    mov dh, 31                  ; Load the first 15 sectors
     mov dl, [BOOT_DRIVE]
     call disk_load
 

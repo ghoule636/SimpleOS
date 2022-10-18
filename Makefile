@@ -21,17 +21,17 @@ run: all
 # debug configuration using GDB
 debug: os-image.bin kernel.elf
 	qemu-system-i386 -fda os-image.bin -s -S &
-	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf" --silent
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
 
 # the disk image the computer loads which is the bootsector and kernel combined
 os-image.bin: boot/boot_sect.bin kernel.bin
 	cat $^ > os-image.bin
 
 # the binary of our kernel
-kernel.bin: kernel/kernel_entry.o ${OBJ}
+kernel.bin: boot/kernel_entry.o ${OBJ}
 	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
 
-kernel.elf: kernel/kernel_entry.o ${OBJ}
+kernel.elf: boot/kernel_entry.o ${OBJ}
 	i386-elf-ld -o $@ -Ttext 0x1000 $^
 
 # Generic rules for compiling C files
@@ -48,4 +48,4 @@ kernel.elf: kernel/kernel_entry.o ${OBJ}
 
 clean: 
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o cpu/*.o libc/*.o
+	rm -rf kernel/*.o boot/*.bin boot/*.o drivers/*.o cpu/*.o libc/*.o

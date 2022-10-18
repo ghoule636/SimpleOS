@@ -1,5 +1,5 @@
 #pragma once
-#include "../cpu/types.h"
+#include <stdint.h>
 
-void mem_cpy(u8int *to_address, u8int *from_address, u32int size);
-void mem_set(u8int* dest, u8int val, u32int size);
+void mem_cpy(uint8_t *to_address, uint8_t *from_address, int size);
+void mem_set(uint8_t* dest, uint8_t val, uint32_t size);
