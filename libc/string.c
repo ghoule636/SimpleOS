@@ -53,6 +53,21 @@ int ascii_to_int(char *str) {
     return result;
 }
 
+void hex_to_ascii(int n, char* str) {
+    append(str, '0');
+    append(str, 'x');
+
+    int32_t tmp;
+    for (int i = 28; i >= 0; i -= 4) {
+        tmp = (n >> i) & 0xF;
+        if (tmp > 0xA) {
+            append(str, tmp - 0xA + 'a');
+        } else {
+            append(str, tmp + '0');
+        }
+    }
+}
+
 /**
  * @brief Reverses the given string.
  */

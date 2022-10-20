@@ -28,3 +28,32 @@ void mem_set(uint8_t* dest, uint8_t val, uint32_t size) {
         temp++;
     }
 }
+
+/**
+ * @brief Temporary hard-coded value for mem location of our heap.
+ * 
+ */
+uint32_t placement_addr = 0x10000;
+
+/**
+ * @brief Simple malloc function that assumes you never need to free
+ * memory and simply just continually allocates more memory from an initial spot
+ * in mem.
+ * 
+ * @param size - Like normal malloc the size of memory requested.
+ * @param align - Align to page
+ * @param phys_addr - Actual physical address in memory not virtual.
+ * @return uint32_t - Location of memory allocated.
+ */
+uint32_t mallok(size_t size, int align, uint32_t *phys_addr) {
+    if (align == 1 && (placement_addr & 0xFFFFF000)) {
+        placement_addr &= 0xFFFFF000;
+        placement_addr += 0x1000;
+    }
+    if (phys_addr) {
+        *phys_addr = placement_addr;
+    }
+    uint32_t tmp = placement_addr;
+    placement_addr += size;
+    return tmp;
+}
