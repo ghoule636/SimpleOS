@@ -53,6 +53,14 @@ int ascii_to_int(char *str) {
     return result;
 }
 
+/**
+ * @brief Converts an int into its ascii hex representation. Stores the
+ * ascii string in the passed str pointer.
+ * 
+ * @param n - Integer being converted into ascii. Not tested with negatives yet.
+ * @param str - char pointer that must have allocated enough space to store the
+ * hex value already.
+ */
 void hex_to_ascii(int n, char* str) {
     append(str, '0');
     append(str, 'x');
