@@ -1,6 +1,8 @@
 #include "mem.h"
 #include <stdint.h>
 
+uint32_t placement_addr = 0x10000;
+
 /**
  * @brief Copies the data from the from address to the to address.
  * 
@@ -8,7 +10,7 @@
  * @param from_address Copy from address
  * @param size Size of data to be copied.
  */
-void mem_cpy(uint8_t *to_address, uint8_t *from_address, int size) {
+void mem_cpy(uint32_t *to_address, uint8_t *from_address, int size) {
     for (int i = 0; i < size; i++) {
         to_address[i] = from_address[i];
     }
@@ -21,19 +23,13 @@ void mem_cpy(uint8_t *to_address, uint8_t *from_address, int size) {
  * @param val Value to fill memory with.
  * @param size Size of memory area to fill.
  */
-void mem_set(uint8_t* dest, uint8_t val, uint32_t size) {
-    uint8_t* temp = dest;
+void mem_set(uint32_t* dest, uint8_t val, uint32_t size) {
+    uint32_t* temp = dest;
     for (uint32_t i = 0; i < size; i++) {
         *temp = val;
         temp++;
     }
 }
-
-/**
- * @brief Temporary hard-coded value for mem location of our heap.
- * 
- */
-uint32_t placement_addr = 0x10000;
 
 /**
  * @brief Simple malloc function that assumes you never need to free
@@ -45,7 +41,7 @@ uint32_t placement_addr = 0x10000;
  * @param phys_addr - Actual physical address in memory not virtual.
  * @return uint32_t - Location of memory allocated.
  */
-uint32_t mallok(size_t size, int align, uint32_t *phys_addr) {
+uint32_t mallok_internal(size_t size, int align, uint32_t *phys_addr) {
     if (align == 1 && (placement_addr & 0xFFFFF000)) {
         placement_addr &= 0xFFFFF000;
         placement_addr += 0x1000;
@@ -56,4 +52,20 @@ uint32_t mallok(size_t size, int align, uint32_t *phys_addr) {
     uint32_t tmp = placement_addr;
     placement_addr += size;
     return tmp;
+}
+
+uint32_t mallok_a(uint32_t size) {
+    return mallok_internal(size, 1, 0);
+}
+
+uint32_t mallok_p(uint32_t size, uint32_t *phys_addr) {
+    return mallok_internal(size, 0, phys_addr);
+}
+
+uint32_t mallok_ap(uint32_t size, uint32_t *phys_addr) {
+    return mallok_internal(size, 1, phys_addr);
+}
+
+uint32_t mallok(uint32_t size) {
+    return mallok_internal(size, 0, 0);
 }

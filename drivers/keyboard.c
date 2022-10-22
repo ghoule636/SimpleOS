@@ -42,21 +42,19 @@ static void keyboard_callback(registers_t *regs) {
             print("Halting the CPU!");
             asm volatile("hlt");
         } else if(strcmp(key_buffer, "PAGE") == 0) {
-            uint32_t phys;
             char hexVal[255];
             int pointer;
             print("Allocating memory at: \n");
-            pointer = mallok(0x1000, 1, &phys);
+            pointer = mallok_a(0x1000);
             hex_to_ascii(pointer, hexVal);
             print(hexVal);
             print("\n");
             hexVal[0] = 0;
         } else if(strcmp(key_buffer, "ALLOC") == 0) {
-            uint32_t phys;
             char hexVal[255];
             int pointer;
             print("Allocating memory at: \n");
-            pointer = mallok(sizeof(int), 0, &phys);
+            pointer = mallok(sizeof(int));
             hex_to_ascii(pointer, hexVal);
             print(hexVal);
             print("\n");
