@@ -2,6 +2,47 @@
 #include "../drivers/screen.h"
 #include "../libc/string.h"
 
+page_directory_t *kernel_directory = 0;
+page_directory_t *current_directory = 0;
+
+uint32_t *frames;
+uint32_t nframes;
+
+#define INDEX_FROM_BIT(a) (a / (8 * 4))
+#define OFFSET_FROM_BIT(a) (a % (8 * 4))
+
+/**
+ * @brief Set a bit in the frame.
+ * 
+ * @param frame_addr 
+ */
+static void set_frame(uint32_t frame_addr) {
+    uint32_t frame = frame_addr / 0x1000;
+    uint32_t idx = INDEX_FROM_BIT(frame);
+    uint32_t off = OFFSET_FROM_BIT(frame);
+    frames[idx] |= (0x1 << off);
+}
+
+static void clear_frame(uint32_t frame_addr) {
+
+}
+
+static uint32_t test_frame(uint32_t frame_addr) {
+
+}
+
+static uint32_t first_frame() {
+
+}
+
+void alloc_frame(page_t *page, int is_kernel, int is_writable) {
+
+}
+
+void free_frame(page_t *page) {
+
+}
+
 void initialize_paging() {
 
 }
