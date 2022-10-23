@@ -1,7 +1,8 @@
 #include "mem.h"
 #include <stdint.h>
 
-uint32_t placement_addr = 0x10000;
+extern uint32_t end;
+uint32_t placement_addr = (uint32_t)&end;
 
 /**
  * @brief Copies the data from the from address to the to address.
@@ -42,7 +43,7 @@ void mem_set(uint32_t* dest, uint8_t val, uint32_t size) {
  * @return uint32_t - Location of memory allocated.
  */
 uint32_t mallok_internal(size_t size, int align, uint32_t *phys_addr) {
-    if (align == 1 && (placement_addr & 0xFFFFF000)) {
+    if (align == 1 && (placement_addr & 0x00000FFF)) {
         placement_addr &= 0xFFFFF000;
         placement_addr += 0x1000;
     }

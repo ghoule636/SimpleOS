@@ -10,6 +10,7 @@ CC = ~/opt/cross/bin/i386-elf-gcc
 GDB = ~/opt/cross/bin/i386-elfgdb
 
 CFLAGS = -g -Wextra -Wall -ffreestanding
+LDFLAGS = -T link.ld
 
 # default build everything
 all: os-image.bin
@@ -29,10 +30,10 @@ os-image.bin: boot/boot_sect.bin kernel.bin
 
 # the binary of our kernel
 kernel.bin: boot/kernel_entry.o ${OBJ}
-	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
+	i386-elf-ld $(LDFLAGS) -o $@ -Ttext 0x1000 $^ --oformat binary
 
 kernel.elf: boot/kernel_entry.o ${OBJ}
-	i386-elf-ld -o $@ -Ttext 0x1000 $^
+	i386-elf-ld $(LDFLAGS) -o $@ -Ttext 0x1000 $^
 
 # Generic rules for compiling C files
 %.o: %.c ${HEADERS}

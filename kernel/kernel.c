@@ -9,6 +9,7 @@ void kernel_main() {
     clear_screen();
 
     initialize_paging();
+    print("hello world!");
     // asm ("int $0x3"); // trigger interrupts for testing the ISRs.
     // asm ("int $0x4");
 }
