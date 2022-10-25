@@ -74,7 +74,7 @@ void print_backspace() {
  */
 int scroll_screen() {
     // shift data up by one row
-    mem_cpy((uint32_t*)VIDEO_ADDRESS,
+    mem_cpy((uint8_t*)VIDEO_ADDRESS,
      (uint8_t*)(VIDEO_ADDRESS + (2 * MAX_COLUMNS)),
       MAX_COLUMNS * MAX_ROWS * 2);
     // blank out the bottom row

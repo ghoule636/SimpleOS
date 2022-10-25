@@ -11,7 +11,7 @@ uint32_t placement_addr = (uint32_t)&end;
  * @param from_address Copy from address
  * @param size Size of data to be copied.
  */
-void mem_cpy(uint32_t *to_address, uint8_t *from_address, int size) {
+void mem_cpy(uint8_t *to_address, uint8_t *from_address, int size) {
     for (int i = 0; i < size; i++) {
         to_address[i] = from_address[i];
     }
